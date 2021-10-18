@@ -19,21 +19,17 @@ createApp({
   data() {
     return {
       currentId: 1,
-      currentData: null,
       currentMeetup: null,
     };
   },
   watch: {
-    currentId(currentValue) {
-      this.currentId = currentValue;
+    currentId(newValue) {
+      fetchMeetupById(newValue).then((res) => {
+        this.currentMeetup = res.title;
+      });
     },
   },
   mounted() {
-    fetchMeetupById(this.currentId).then((res) => {
-      this.currentMeetup = res.title;
-    });
-  },
-  updated() {
     fetchMeetupById(this.currentId).then((res) => {
       this.currentMeetup = res.title;
     });
